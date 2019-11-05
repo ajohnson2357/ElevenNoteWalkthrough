@@ -32,6 +32,9 @@
             @Html.DisplayNameFor(model => model.IsStarred)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.CreatedUtc)
         </th>
         <th></th>
@@ -47,7 +50,10 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsStarred)
+                @Html.DisplayFor(modelItem => item.IsStarred,  new { Id = item.NoteId })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedUtc)

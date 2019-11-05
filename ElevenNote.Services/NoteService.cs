@@ -27,6 +27,7 @@ namespace ElevenNote.Services
                     OwnerId = _userId,
                     Title = model.Title,
                     Content = model.Content,
+                    CategoryId = model.CategoryId,
                     CreatedUtc = DateTimeOffset.Now
                 };
             using (var ctx = new ApplicationDbContext())
@@ -43,7 +44,8 @@ namespace ElevenNote.Services
                 var query = ctx
                     .Notes
                     .Where(e => e.OwnerId == _userId)
-                    .Select(e => new NoteListItem { NoteId = e.NoteId, Title = e.Title, IsStarred = e.IsStarred, CreatedUtc = e.CreatedUtc });
+                    .Select(e => new NoteListItem { NoteId = e.NoteId, Title = e.Title,
+                        CategoryName = e.Categories.CategoryName, IsStarred = e.IsStarred, CreatedUtc = e.CreatedUtc });
                 return query.ToArray();
             }
         }
@@ -63,7 +65,9 @@ namespace ElevenNote.Services
                         Title = entity.Title,
                         Content = entity.Content,
                         CreatedUtc = entity.CreatedUtc,
-                        ModifiedUtc = entity.ModifiedUtc
+                        ModifiedUtc = entity.ModifiedUtc,
+                        CategoryId = entity.CategoryId,
+                        CategoryName = entity.Categories.CategoryName
                     };
             }
         }
@@ -81,6 +85,7 @@ namespace ElevenNote.Services
                 entity.Content = model.Content;
                 entity.ModifiedUtc = DateTimeOffset.UtcNow;
                 entity.IsStarred = model.IsStarred;
+                entity.CategoryId = model.CategoryId;
 
                 return ctx.SaveChanges() == 1;
             }
