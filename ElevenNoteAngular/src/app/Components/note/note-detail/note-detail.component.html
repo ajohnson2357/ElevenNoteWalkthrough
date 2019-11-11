@@ -1,0 +1,25 @@
+<h1>Details</h1>>
+<hr />
+
+<div *ngIf="note">
+    <div>
+        <label>Title: </label>
+        <span>{{note.Title}}</span>
+    </div>
+    <div>
+        <label>Content: </label>
+        <span>{{note.Content}}</span>
+    </div>
+    <div>
+        <label> Created At: </label>
+        <span>{{note.CreatedUtc | date: 'fullDate'}}</span>
+    </div>
+    <div>
+        <label>Last Modified: </label>
+        <span>{{note.ModifiedUtc | date: 'fullDate'}}</span>
+    </div>
+
+    <button mat-raised-button color="accent">Edit</button>
+</div>
+
+<button mat-raised-button color="primary" routerLink="/notes">Back to List</button>
